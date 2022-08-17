@@ -42,8 +42,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		String[] AUTH_WHITELIST = {
+		        "/swagger-resources/**",
+		        "/swagger-ui.html",
+		        "/v2/api-docs",
+		        "/webjars/**"
+		};
 		http.authorizeRequests()
-			.antMatchers("/swagger-ui/**").permitAll()
+			.antMatchers(AUTH_WHITELIST).permitAll()
 			.antMatchers("/")
 			.hasAnyAuthority("USER", "CREATOR", "EDITOR", "ADMIN")
 			.antMatchers("/new").hasAnyAuthority("ADMIN", "CREATOR")
